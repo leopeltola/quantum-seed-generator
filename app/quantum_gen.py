@@ -1,20 +1,14 @@
 # PRNG with Pseudo Quantum Error
 # 2021 Â© Aaron Campbell
 
-# How to use:
-#   1. Set the varoables under ""Global var definitions" to the desired values.
-#   2. Run the program
-#   3. Note that for the program to re-run the same way, you must record the value of counts and re-use it rather than getting a new one
 
-
-# from time import time_ns
-# tracker_ms = time_ns()
 from os import environ
 import math
 from qiskit import *
 from qiskit.tools.monitor import job_monitor
 from qiskit.tools.visualization import plot_histogram
 from qiskit.providers.ibmq import least_busy
+
 
 #IBM setup
 if environ.get("FLASK_ENV") == "production":
@@ -23,17 +17,12 @@ if environ.get("FLASK_ENV") == "production":
 else:
     IBMQ.load_account()
 
-job = None
-
-def temp():
-    return [1234, 4321, 2345, 3546, 7654, 9876, 9706]
 
 def generate_seeds():
     #
     # Global var definitions
     #
 
-    global job
     starting_seed = 12345
     number_of_seeds = 20
     # number_of_qbits = 4 # this value depends ont the hardware used. 4 is a safe value
@@ -151,6 +140,3 @@ def generate_seeds():
         seed = newSeed(seed)
         seeds.append(int(toBoundsFloat(seed)))
     return seeds
-
-
-# print("\nTime taken: {}".format(time_ns()-tracker_ms))
