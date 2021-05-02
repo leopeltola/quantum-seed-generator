@@ -1,7 +1,6 @@
 from flask import Flask, request
 from concurrent.futures import ThreadPoolExecutor
 from app.quantum_gen import generate_seeds
-from app.quantum_gen import job as quantum_job
 from random import shuffle
 
 
@@ -33,6 +32,15 @@ def index_ping():
 
 @app.route("/get-seeds", methods=["GET"])
 def get_seeds():
+	global seeds, process
+	shuffle(seeds)
+	if process == None:
+		process = ex.submit(generate_seeds)
+		process.add_done_callback(seeds_computed)
+	return dict(zip(range(len(seeds)), seeds)), 200
+
+@app.route("/get-seeds/<count:int>", methods=["GET"])
+def get_seeds(count):
 	global seeds, process
 	shuffle(seeds)
 	if process == None:
