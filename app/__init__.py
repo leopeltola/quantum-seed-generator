@@ -39,8 +39,8 @@ def get_seeds():
 		process.add_done_callback(seeds_computed)
 	return dict(zip(range(len(seeds)), seeds)), 200
 
-@app.route("/get-seeds/<count:int>", methods=["GET"])
-def get_seeds(count):
+@app.route("/get-seeds/<int:count>", methods=["GET"])
+def get_count_seeds(count):
 	global seeds, process
 	shuffle(seeds)
 	if process == None:
