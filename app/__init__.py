@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from concurrent.futures import ThreadPoolExecutor
 from app.quantum_gen import generate_seeds
 from random import shuffle
@@ -70,16 +70,17 @@ def get_seeds():
 	if process == None:
 		process = ex.submit(generate_seeds)
 		process.add_done_callback(seeds_computed)
-	return dict(zip(range(len(seeds)), seeds)), 200
+	return jsonify(seeds)
+	# return dict(zip(range(len(seeds)), seeds)), 200
 
-@app.route("/get-seeds/<int:count>", methods=["GET"])
-def get_count_seeds(count):
-	global seeds, process
-	shuffle(seeds)
-	if process == None:
-		process = ex.submit(generate_seeds)
-		process.add_done_callback(seeds_computed)
-	return dict(zip(range(len(seeds)), seeds)), 200
+# @app.route("/get-seeds/<int:count>", methods=["GET"])
+# def get_count_seeds(count):
+# 	global seeds, process
+# 	shuffle(seeds)
+# 	if process == None:
+# 		process = ex.submit(generate_seeds)
+# 		process.add_done_callback(seeds_computed)
+# 	return dict(zip(range(len(seeds)), seeds)), 200
 
 
 # quantum_job.queue_info().estimated_complete_time.strftime("%H:%M:%S")
