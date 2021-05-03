@@ -7,7 +7,40 @@ from random import shuffle
 app = Flask(__name__)
 ex = ThreadPoolExecutor(max_workers=1)
 process = None
-seeds = [18, 750, 140, 38, 622, 1125, 48, 122, 941, 308, 1197, 33, 75, 772, 989, 893, 558, 623, 197, 835]
+seeds = [
+	6, 
+	15, 
+	5, 
+	261, 
+	2, 
+	1, 
+	8, 
+	250, 
+	3, 
+	4, 
+	41, 
+	10, 
+	44, 
+	3, 
+	4, 
+	8, 
+	20, 
+	26, 
+	13, 
+	7, 
+	2, 
+	16, 
+	63, 
+	10, 
+	63, 
+	18, 
+	45, 
+	37, 
+	31, 
+	5, 
+	2, 
+	1,
+]
 
 
 def shutdown_server():
